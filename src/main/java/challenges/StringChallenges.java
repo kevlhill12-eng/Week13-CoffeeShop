@@ -7,41 +7,57 @@ package challenges;
 
 public class StringChallenges {
 
-    // A short code the barista prints on the cup: the first 3 letters of the drink in
-    // CAPITALS, a dash, then the size letter in CAPITALS.
-    // If the name is shorter than 3 letters, use the whole name.
-    //   orderCode("latte", 'm') -> "LAT-M"
-    //   orderCode("Tea", 'L')   -> "TEA-L"
-    //   orderCode("Mo", 's')    -> "MO-S"
+    // Builds a cup code from up to the first three letters of name, a dash, and uppercase size.
     public static String orderCode(String name, char size) {
-        return "";   // YOUR CODE
+        String safeName = (name == null) ? "" : name.trim();
+        int prefixLength = Math.min(3, safeName.length());
+        String prefix = safeName.substring(0, prefixLength).toUpperCase();
+        char upperSize = Character.toUpperCase(size);
+        return prefix + "-" + upperSize;
     }
 
-    // Write a customer's name on the cup neatly: no spaces at the ends, the first letter
-    // a capital, every other letter small. If there is no name left, give back "Guest".
-    //   cupName("jORDAN")   -> "Jordan"
-    //   cupName("  sky  ")  -> "Sky"
-    //   cupName("   ")      -> "Guest"
+    // Trims whitespace and formats the name in title case, or returns "Guest" if blank.
     public static String cupName(String name) {
-        return "";   // YOUR CODE
+        if (name == null) {
+            return "Guest";
+        }
+        String trimmed = name.trim();
+        if (trimmed.isEmpty()) {
+            return "Guest";
+        }
+        String first = trimmed.substring(0, 1).toUpperCase();
+        String rest = trimmed.substring(1).toLowerCase();
+        return first + rest;
     }
 
-    // How many times does word show up in order? Capital and small letters count the same.
-    // After you find the word, keep looking right after it.
-    // If word is empty, give back 0.
-    //   countWord("double shot, extra SHOT", "shot") -> 2
-    //   countWord("oat milk latte", "milk")          -> 1
-    //   countWord("black coffee", "sugar")           -> 0
+    // Counts case-insensitive occurrences of word in order, advancing past each match.
     public static int countWord(String order, String word) {
-        return 0;   // YOUR CODE
+        if (order == null || word == null || word.isEmpty()) {
+            return 0;
+        }
+        String lowerOrder = order.toLowerCase();
+        String lowerWord = word.toLowerCase();
+        int count = 0;
+        int searchFrom = 0;
+        while (searchFrom <= lowerOrder.length() - lowerWord.length()) {
+            int foundAt = lowerOrder.indexOf(lowerWord, searchFrom);
+            if (foundAt == -1) {
+                break;
+            }
+            count++;
+            searchFrom = foundAt + lowerWord.length();
+        }
+        return count;
     }
 
-    // One line of a receipt. The name, then dots until the line is 20 characters long,
-    // then a dollar sign and the price with 2 decimals.
-    // If the name is already 20 characters or longer, add no dots.
-    //   receiptLine("Latte", 3.75) -> "Latte...............$3.75"   (5 letters + 15 dots = 20)
-    //   receiptLine("Bagel", 2.5)  -> "Bagel...............$2.50"
+    // Pads name with dots up to a 20-character prefix and appends the price formatted to 2 decimals.
     public static String receiptLine(String name, double price) {
-        return "";   // YOUR CODE
+        String safeName = (name == null) ? "" : name;
+        StringBuilder sb = new StringBuilder(safeName);
+        while (sb.length() < 20) {
+            sb.append('.');
+        }
+        sb.append('$').append(String.format("%.2f", price));
+        return sb.toString();
     }
 }
