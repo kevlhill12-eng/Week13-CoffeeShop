@@ -1,5 +1,4 @@
 package challenges;
-
 import java.util.ArrayList;
 
 // SECTION D: ArrayList. add, get, size, and the for-each loop.
@@ -9,28 +8,51 @@ import java.util.ArrayList;
 
 public class ListChallenges {
 
-    // Give back a NEW list with every item except the sold-out one.
-    // Capital and small letters count the same. Do not change the list you were given.
-    //   removeSoldOut(["Latte", "Bagel", "latte"], "LATTE") -> ["Bagel"]
-    //   removeSoldOut(["Tea"], "Coffee")                    -> ["Tea"]
+    // Returns a new list containing all items that do not match soldOut ignoring case.
     public static ArrayList<String> removeSoldOut(ArrayList<String> items, String soldOut) {
-        return new ArrayList<>();   // YOUR CODE
+        ArrayList<String> remaining = new ArrayList<>();
+        if (items == null) {
+            return remaining;
+        }
+        for (String item : items) {
+            boolean isSoldOut = (soldOut == null)
+                    ? (item == null)
+                    : (item != null && item.equalsIgnoreCase(soldOut));
+            if (!isSoldOut) {
+                remaining.add(item);
+            }
+        }
+        return remaining;
     }
 
-    // The longest name in the list. If two tie, give back the first one.
-    // If the list is empty, give back "" (an empty String).
-    //   longestName(["Mo", "Jordan", "Skye"]) -> "Jordan"
-    //   longestName(["Ana", "Bob"])           -> "Ana"
+    // Returns the longest name in the list, breaking ties with the first occurrence, or "" if empty.
     public static String longestName(ArrayList<String> names) {
-        return "";   // YOUR CODE
+        if (names == null || names.isEmpty()) {
+            return "";
+        }
+        String longest = "";
+        for (String name : names) {
+            if (name != null && name.length() > longest.length()) {
+                longest = name;
+            }
+        }
+        return longest;
     }
 
-    // Did any name order twice? Give back true if the same String (exactly, with equals)
-    // is in the list more than once.
-    //   hasRepeat(["Mo", "Ana", "Mo"]) -> true
-    //   hasRepeat(["Mo", "Ana", "mo"]) -> false   (capital M is different)
-    //   hasRepeat([])                  -> false
+    // Returns true if any exact string appears more than once in the list.
     public static boolean hasRepeat(ArrayList<String> names) {
-        return false;   // YOUR CODE
+        if (names == null) {
+            return false;
+        }
+        for (int i = 0; i < names.size(); i++) {
+            String current = names.get(i);
+            for (int j = i + 1; j < names.size(); j++) {
+                String other = names.get(j);
+                if ((current == null && other == null) || (current != null && current.equals(other))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
