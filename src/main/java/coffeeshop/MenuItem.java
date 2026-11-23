@@ -15,7 +15,7 @@ public class MenuItem {
     private String name;
     private double price;
 
-    // Creates a MenuItem with a name and base price.
+    // Creates a MenuItem with a name and base pricew.
     public MenuItem(String name, double price) {
         this.name = name;
         this.price = price;
