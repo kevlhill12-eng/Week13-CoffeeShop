@@ -126,7 +126,7 @@ public class CoffeeShopApp {
         System.out.println(order);
     }
 
-    // Prompts for a coupon code and reports whether it was applied.
+    // Prompts for a coupon code and reports whether it was applied.s
     private void useCoupon() {
         String code = readText("Coupon code: ");
         if (order.applyCoupon(code)) {
