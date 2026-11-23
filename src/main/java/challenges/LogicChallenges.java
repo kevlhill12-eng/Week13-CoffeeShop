@@ -7,40 +7,56 @@ package challenges;
 
 public class LogicChallenges {
 
-    // How much extra a drink size costs.
-    //   'S' or 's' -> 0.0     'M' or 'm' -> 0.50     'L' or 'l' -> 1.00
-    //   anything else -> -1.0 (that size does not exist)
-    //   sizeUpcharge('M') -> 0.5     sizeUpcharge('l') -> 1.0     sizeUpcharge('X') -> -1.0
+    // Returns the extra cost for a drink size, or -1.0 if the size is invalid.
     public static double sizeUpcharge(char size) {
-        return 0.0;   // YOUR CODE
+        char upper = Character.toUpperCase(size);
+        if (upper == 'S') {
+            return 0.0;
+        }
+        if (upper == 'M') {
+            return 0.50;
+        }
+        if (upper == 'L') {
+            return 1.00;
+        }
+        return -1.0;
     }
 
-    // Happy hour on a weekday is from hour 14 to hour 16 (2 PM to 4 PM), both included.
-    // On the weekend it is longer: hour 12 to hour 17, both included.
-    // hour is on a 24-hour clock (0 to 23). Any other hour is never happy hour.
-    //   isHappyHour(15, false) -> true     isHappyHour(12, false) -> false
-    //   isHappyHour(12, true)  -> true     isHappyHour(25, true)  -> false
+    // Checks if hour (0-23) falls within happy hour on a weekday or weekend.
     public static boolean isHappyHour(int hour, boolean weekend) {
-        return false;   // YOUR CODE
+        if (hour < 0 || hour > 23) {
+            return false;
+        }
+        if (weekend) {
+            return hour >= 12 && hour <= 17;
+        }
+        return hour >= 14 && hour <= 16;
     }
 
-    // A loyalty card gets one stamp per drink. Every 10 stamps is one free drink.
-    // The card already has stamps, and the customer buys more drinks.
-    // Give back how many free drinks they have earned in total.
-    // If stamps or bought is below 0, give back 0.
-    //   freeDrinks(8, 3)  -> 1     freeDrinks(0, 25) -> 2
-    //   freeDrinks(4, 5)  -> 0     freeDrinks(-1, 30) -> 0
+    // Calculates free drinks earned every 10 stamps from existing plus bought drinks.
     public static int freeDrinks(int stamps, int bought) {
-        return 0;   // YOUR CODE
+        if (stamps < 0 || bought < 0) {
+            return 0;
+        }
+        return (stamps + bought) / 10;
     }
 
-    // The fewest coins that make the change. Coins are 25, 10, 5 and 1 cents.
-    // Use as many quarters as you can, then dimes, then nickels, then pennies.
-    // If cents is 0 or less, give back 0.
-    //   coinsForChange(30) -> 2  (25 + 5)
-    //   coinsForChange(41) -> 4  (25 + 10 + 5 + 1)
-    //   coinsForChange(99) -> 9  (3 quarters, 2 dimes, 4 pennies)
+    // Computes the minimum coin count using quarters, dimes, nickels, and pennies.
     public static int coinsForChange(int cents) {
-        return 0;   // YOUR CODE
+        if (cents <= 0) {
+            return 0;
+        }
+        int remaining = cents;
+        int coins = remaining / 25;
+        remaining %= 25;
+
+        coins += remaining / 10;
+        remaining %= 10;
+
+        coins += remaining / 5;
+        remaining %= 5;
+
+        coins += remaining;
+        return coins;
     }
 }
