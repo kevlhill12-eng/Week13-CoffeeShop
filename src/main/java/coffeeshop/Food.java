@@ -30,7 +30,7 @@ public class Food extends MenuItem {
         return heated;
     }
 
-    // Returns the item price plus HEAT_FEE if heated.
+    // Returns the item price plus HEAT_FEE if heated.s
     @Override
     public double getPrice() {
         if (heated) {
