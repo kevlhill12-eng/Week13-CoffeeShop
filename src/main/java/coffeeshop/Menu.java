@@ -26,7 +26,7 @@ public class Menu {
         items.add(new Food("Breakfast Sandwich", 4.50, false));
 }
 
-// Returns the number of items on the menu.
+// Returns the number of items on the menu.s
 public int size() {
     return items.size();
 }
