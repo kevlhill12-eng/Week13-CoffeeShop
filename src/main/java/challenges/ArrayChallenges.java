@@ -7,27 +7,54 @@ package challenges;
 
 public class ArrayChallenges {
 
-    // The lowest price in the array. If the array is empty, give back 0.0.
-    //   cheapest({3.25, 2.00, 4.50}) -> 2.0
-    //   cheapest({5.0})              -> 5.0
-    //   cheapest({})                 -> 0.0
+    // Finds the lowest price in the array, or returns 0.0 when empty.
     public static double cheapest(double[] prices) {
-        return 0.0;   // YOUR CODE
+        if (prices == null || prices.length == 0) {
+            return 0.0;
+        }
+        double lowest = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < lowest) {
+                lowest = prices[i];
+            }
+        }
+        return lowest;
     }
 
-    // How many prices are MORE than limit? (Equal to limit does not count.)
-    //   countOver({3.25, 2.00, 4.50}, 3.00) -> 2
-    //   countOver({3.25, 2.00, 4.50}, 4.50) -> 0
+    // Counts how many prices are strictly greater than the limit.
     public static int countOver(double[] prices, double limit) {
-        return 0;   // YOUR CODE
+        if (prices == null) {
+            return 0;
+        }
+        int count = 0;
+        for (double price : prices) {
+            if (price > limit) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    // Each row is one day. Each number in the row is how many cups were sold in one hour.
-    // Give back the row number (starting at 0) of the day that sold the most cups in total.
-    // If two days tie, give back the first one. If there are no rows, give back -1.
-    //   busiestDay({{5, 9}, {20, 1}, {3, 3}}) -> 1    (row totals are 14, 21, 6)
-    //   busiestDay({{4, 4}, {8}})             -> 0    (a tie: 8 and 8, so the first)
+    // Returns the row index with the highest total cups, first index on ties, or -1 if empty.
     public static int busiestDay(int[][] cups) {
-        return 0;   // YOUR CODE
+        if (cups == null || cups.length == 0) {
+            return -1;
+        }
+        int bestRow = 0;
+        int bestTotal = Integer.MIN_VALUE;
+        for (int row = 0; row < cups.length; row++) {
+            int rowTotal = 0;
+            if (cups[row] != null) {
+                for (int hourCups : cups[row]) {
+                    rowTotal += hourCups;
+                }
+            }
+            if (rowTotal > bestTotal) {
+                bestTotal = rowTotal;
+                bestRow = row;
+            }
+        }
+        return bestRow;
     }
 }
+
