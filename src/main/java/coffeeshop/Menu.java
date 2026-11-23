@@ -13,7 +13,40 @@ import java.util.ArrayList;
 // Commit message:  step 3: Menu
 
 public class Menu {
+    private ArrayList<MenuItem> items;
+    public Menu(){
+    items = new ArrayList<>();
+        items.add(new Drink("Coffee", 2.00, 'S'));
+        items.add(new Drink("Latte", 3.25, 'S'));
+        items.add(new Drink("Cappuccino", 3.25, 'S'));
+        items.add(new Drink("Hot Chocolate", 2.50, 'S'));
+        items.add(new Drink("Iced Tea", 2.25, 'S'));
+        items.add(new Food("Bagel", 2.75, false));
+        items.add(new Food("Blueberry Muffin", 2.50, false));
+        items.add(new Food("Breakfast Sandwich", 4.50, false));
+}
 
-    // YOUR CODE
+// Returns the number of items on the menu.
+public int size() {
+    return items.size();
+}
+
+// Returns the 1-based menu item, or null if the number is out of range.
+public MenuItem getItem(int number) {
+    if (number < 1 || number > items.size()) {
+        return null;
+    }
+    return items.get(number - 1);
+}
+
+// Returns a numbered list of all menu items, each ending with a newline.
+@Override
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < items.size(); i++) {
+        sb.append(i + 1).append(". ").append(items.get(i).toString()).append("\n");
+    }
+    return sb.toString();
+}
 
 }
