@@ -14,8 +14,45 @@ package coffeeshop;
 // Then drag check/coffeeshop/DrinkTest.java into src/test/java/coffeeshop/ and run it.
 // Commit message (after Food is green too):  step 2: Drink and Food
 
-public class Drink {
+public class Drink extends MenuItem{
 
-    // YOUR CODE
+    public static final double MEDIUM_UPCHARGE = 0.50;
+    public static final double LARGE_UPCHARGE = 1.00;
 
+    private char size;
+
+    // Creates a Drink and normalizes any size other than M or L to 'S'.
+    public Drink(String name, double price, char size) {
+        super(name, price);
+        char upper = Character.toUpperCase(size);
+        if (upper == 'M' || upper == 'L') {
+            this.size = upper;
+        } else {
+            this.size = 'S';
+        }
+    }
+
+    // Returns the drink's size ('S', 'M', or 'L').
+    public char getSize() {
+        return size;
+    }
+
+    // Returns the base price plus the size upcharge for medium or large drinks.
+    @Override
+    public double getPrice() {
+        double total = super.getPrice();
+        if (size == 'M') {
+            total += MEDIUM_UPCHARGE;
+        } else if (size == 'L') {
+            total += LARGE_UPCHARGE;
+        }
+        return total;
+    }
+
+    // Returns true because a Drink is a drink.
+    @Override
+    public boolean isDrink() {
+        return true;
+
+    }
 }
